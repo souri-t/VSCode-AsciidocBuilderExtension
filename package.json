@@ -17,6 +17,10 @@
       {
         "command": "asciidocdocumentbuilder.BuildDocumnent",
         "title": "Build Document"
+      },
+      {
+        "command": "asciidocdocumentbuilder.ValidationText",
+        "title": "Validation Document"
       }
     ],
     "menus": {
@@ -24,6 +28,11 @@
         {
           "when": "editorFocus",
           "command": "asciidocdocumentbuilder.BuildDocumnent",
+          "group": "Group@1"
+        },
+        {
+          "when": "editorFocus",
+          "command": "asciidocdocumentbuilder.ValidationText",
           "group": "Group@1"
         }
       ]
