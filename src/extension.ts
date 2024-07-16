@@ -10,40 +10,47 @@ export function activate(context: vscode.ExtensionContext) {
 
 	{
 		const disposable = vscode.commands.registerCommand('asciidocdocumentbuilder.BuildDocumnent', () => {
-			vscode.window.showInformationMessage('Build Documnent');
+			vscode.window.showInformationMessage('Build starting...');
 
-			// Execute Shell Command
-			const { exec } = require('child_process');
-			exec('npm run build', (err: any, stdout: any, stderr: any) => {
-
-				if (err) {
-					vscode.window.showErrorMessage("Failed to build document : " + err);
-					return;
-				}
-				vscode.window.showInformationMessage("Success!");
-			});
+			try {
+				// Execute Shell Command
+				const { exec } = require('child_process');
+				exec('npm run build', (err: any, stdout: any, stderr: any) => {
+					if (err) {
+						vscode.window.showErrorMessage("Failed to build document : " + err);
+						return;
+					}
+					vscode.window.showInformationMessage("Success!");
+				});
+			} catch (error) {
+				vscode.window.showErrorMessage("Failed to build: " + error);
+			}
 		});
 		context.subscriptions.push(disposable);
 	}
 
 	{
 		const disposable = vscode.commands.registerCommand('asciidocdocumentbuilder.ValidationText', () => {
-			vscode.window.showInformationMessage('Check Text');
+			vscode.window.showInformationMessage('Lint starting');
 
-			// Execute Shell Command
-			const { exec } = require('child_process');
-			exec('npm run lint', (err: any, stdout: any, stderr: any) => {
-	
-				var textMessage = (err) ? err : stdout;
-				const panel = vscode.window.createWebviewPanel(
-					'result', 
-					'result', 
-					vscode.ViewColumn.One, 
-					{}
-				);
-				
-				panel.webview.html = createWebviewContent(textMessage);
-			});
+			try {
+				// Execute Shell Command
+				const { exec } = require('child_process');
+				exec('npm run lint', (err: any, stdout: any, stderr: any) => {
+		
+					var textMessage = (err) ? err : stdout;
+					const panel = vscode.window.createWebviewPanel(
+						'result', 
+						'result', 
+						vscode.ViewColumn.One, 
+						{}
+					);
+					
+					panel.webview.html = createWebviewContent(textMessage);
+				});
+			} catch (error) {
+				vscode.window.showErrorMessage("Failed to execute lint command: " + error);
+			}
 
 		});
 		context.subscriptions.push(disposable);

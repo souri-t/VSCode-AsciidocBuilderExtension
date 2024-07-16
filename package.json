@@ -20,7 +20,7 @@
       },
       {
         "command": "asciidocdocumentbuilder.ValidationText",
-        "title": "Validation Document"
+        "title": "Lint"
       }
     ],
     "menus": {
